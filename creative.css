@@ -1,0 +1,96 @@
+/* ================= Creative layer ================= */
+.progress { position: fixed; top: 0; left: 0; height: 2px; width: 100%; z-index: 60; transform-origin: left; transform: scaleX(0); background: linear-gradient(90deg, #b98a2e, #f0d487, #b98a2e); }
+.glow { position: fixed; z-index: 1; width: 520px; height: 520px; left: 0; top: 0; margin: -260px 0 0 -260px; pointer-events: none; border-radius: 50%;
+  background: radial-gradient(circle, rgba(230, 199, 120, .13), transparent 65%); transition: opacity .4s; opacity: 0; mix-blend-mode: screen; }
+.dust { position: absolute; top: 0; left: 0; width: 100%; height: 100svh; z-index: 1; pointer-events: none; }
+.hero-grid, .scroll-cue { z-index: 2; }
+
+/* drawing lines + orbit */
+.hero-pattern path { stroke-dasharray: 1400; stroke-dashoffset: 1400; animation: draw 3.6s var(--ease) forwards; }
+.hero-pattern path:nth-child(2) { animation-delay: .25s; } .hero-pattern path:nth-child(3) { animation-delay: .5s; }
+.hero-pattern path:nth-child(4) { animation-delay: .75s; } .hero-pattern path:nth-child(5) { animation-delay: 1s; }
+@keyframes draw { to { stroke-dashoffset: 0; } }
+.hero-pattern circle { transform-origin: 640px 360px; animation: spin 90s linear infinite; stroke-dasharray: 3 9; }
+.hero-pattern circle:nth-child(7) { animation-duration: 140s; animation-direction: reverse; stroke-dasharray: 1 6; }
+.hero-pattern.flip circle { transform-origin: 400px 400px; animation-duration: 120s; stroke-dasharray: 2 10; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* shimmering surname */
+.gold-text { background-size: 250% 100%; animation: shimmer 6s linear infinite; }
+@keyframes shimmer { to { background-position: -250% 0; } }
+.hero-copy h1::after { content: ""; display: block; width: 120px; height: 1px; margin-top: 26px; background: linear-gradient(90deg, var(--gold), transparent); }
+
+/* hero card */
+.hero-card { transition: transform .25s ease-out, opacity .9s var(--ease); will-change: transform; box-shadow: 0 40px 80px -40px rgba(0, 0, 0, .8), inset 0 0 60px rgba(209, 169, 79, .05); }
+.hero-monogram { animation: float 6s ease-in-out infinite; text-shadow: 0 0 30px rgba(230, 199, 120, .45); }
+@keyframes float { 50% { transform: translateY(-6px); } }
+
+/* portrait hero */
+.hero-card { padding: 0; border: 0; background: none; backdrop-filter: none; box-shadow: none; max-width: 440px; justify-self: center; width: 100%; }
+.hero-card::before { display: none; }
+.portrait { position: relative; padding: 0 0 0 0; }
+.arch { position: relative; aspect-ratio: 4 / 5.2; border-radius: 999px 999px 6px 6px; overflow: hidden;
+  border: 1px solid rgba(230, 199, 120, .7); box-shadow: 0 40px 80px -30px rgba(0, 0, 0, .85), 0 0 60px -10px rgba(209, 169, 79, .25); }
+.arch img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 18%; display: block; filter: saturate(.92) contrast(1.04); transform: scale(1.04); transition: transform 1.4s var(--ease); }
+.hero-card:hover .arch img { transform: scale(1.09); }
+.arch::after { content: ""; position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(11, 26, 54, .18) 0%, transparent 35%, rgba(7, 20, 41, .55) 78%, rgba(7, 20, 41, .92) 100%); }
+.arch-ring { position: absolute; inset: -14px -14px 18px 18px; border: 1px solid rgba(209, 169, 79, .4); border-radius: 999px 999px 6px 6px; pointer-events: none; }
+.stats { position: absolute; left: 0; right: 0; bottom: 0; display: grid; grid-template-columns: repeat(3, 1fr); padding: 0 6px 20px; z-index: 2; }
+.stats li { padding: 0 8px; text-align: center; border: 0; }
+.stats li + li { border-left: 1px solid rgba(209, 169, 79, .4); }
+.stats strong { font-size: clamp(1.6rem, 2.6vw, 2.1rem); }
+.stats span { display: block; font-size: .68rem; letter-spacing: .14em; text-transform: uppercase; color: rgba(241, 232, 212, .85); line-height: 1.4; margin-top: 2px; }
+@media (max-width: 900px) { .hero-card { max-width: 360px; margin-top: 20px; } .arch-ring { inset: -10px -10px 14px 14px; } }
+
+/* marquee */
+.marquee { overflow: hidden; background: linear-gradient(90deg, #b98a2e, #e6c778 50%, #b98a2e); color: var(--navy-900); padding: 16px 0; border-block: 1px solid rgba(7, 20, 41, .4); position: relative; z-index: 2; }
+.marquee-track { display: flex; width: max-content; gap: 34px; align-items: center; animation: scroll 38s linear infinite; }
+.marquee:hover .marquee-track { animation-play-state: paused; }
+.marquee span { font-family: var(--serif); font-style: italic; font-size: clamp(1.3rem, 2.4vw, 1.8rem); white-space: nowrap; }
+.marquee i { font-style: normal; font-size: .8rem; opacity: .7; }
+@keyframes scroll { to { transform: translateX(-50%); } }
+
+/* ivory texture, watermark, drop cap */
+.section.ivory { background-color: var(--ivory); background-image:
+  radial-gradient(900px 400px at 100% 0%, rgba(209, 169, 79, .16), transparent 70%),
+  radial-gradient(700px 400px at 0% 100%, rgba(209, 169, 79, .10), transparent 70%),
+  url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .55  0 0 0 0 .42  0 0 0 0 .15  0 0 0 .09 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"); }
+.section { overflow: hidden; }
+.watermark { position: absolute; right: 2%; top: 6%; font-family: var(--serif); font-style: italic; font-size: clamp(14rem, 34vw, 30rem); line-height: .8; color: transparent; -webkit-text-stroke: 1px rgba(138, 106, 31, .22); pointer-events: none; user-select: none; }
+.split { position: relative; }
+.dropcap::first-letter { float: left; font-family: var(--serif); font-size: 4.6rem; line-height: .8; padding: 6px 12px 0 0; color: var(--gold-deep); font-style: italic; }
+h2::after { content: "◆"; display: block; margin-top: 14px; font-size: .5rem; color: var(--gold); }
+.contact h2::after { margin-inline: auto; text-align: center; }
+
+/* cards: spotlight + giant numeral */
+.card { overflow: hidden; --mx: 50%; --my: 0%; }
+.card::before { content: ""; position: absolute; inset: 0; background: radial-gradient(260px circle at var(--mx) var(--my), rgba(230, 199, 120, .16), transparent 70%); opacity: 0; transition: opacity .35s; pointer-events: none; }
+.card:hover::before { opacity: 1; }
+.card-no { position: absolute; right: 18px; top: 4px; font-size: 5rem; line-height: 1; color: transparent; -webkit-text-stroke: 1px rgba(209, 169, 79, .35); transition: -webkit-text-stroke-color .4s, transform .5s var(--ease); }
+.card:hover .card-no { -webkit-text-stroke-color: rgba(230, 199, 120, .8); transform: translateY(6px) scale(1.06); }
+
+/* timeline draws as you scroll */
+.timeline::before { transform-origin: top; transform: scaleY(var(--tl, 0)); }
+.timeline > li::before { transition: background .5s, box-shadow .5s; }
+.timeline > li.in::before { background: var(--gold); box-shadow: 0 0 0 5px rgba(209, 169, 79, .22); }
+
+/* chips */
+.chips span { transition: background .3s, color .3s, border-color .3s, transform .3s var(--ease), box-shadow .3s; }
+.chips span:hover { transform: translateY(-3px); box-shadow: 0 12px 24px -14px rgba(209, 169, 79, .8); }
+
+/* button shine */
+.btn-gold { position: relative; overflow: hidden; }
+.btn-gold::after { content: ""; position: absolute; top: 0; left: -80%; width: 50%; height: 100%; background: linear-gradient(100deg, transparent, rgba(255, 255, 255, .55), transparent); transform: skewX(-20deg); animation: shine 4.5s ease-in-out infinite; }
+@keyframes shine { 0%, 60% { left: -80%; } 100% { left: 160%; } }
+
+/* eyebrow gets a leading rule */
+.eyebrow::before { content: ""; display: inline-block; width: 36px; height: 1px; background: currentColor; vertical-align: middle; margin-right: 14px; opacity: .7; }
+.contact .eyebrow::before { display: none; }
+
+@media (max-width: 640px) { .glow { display: none; } .card-no { font-size: 4rem; } }
+@media (prefers-reduced-motion: reduce) {
+  .hero-pattern path, .hero-pattern circle, .gold-text, .hero-monogram, .marquee-track, .btn-gold::after { animation: none !important; }
+  .hero-pattern path { stroke-dashoffset: 0; }
+  .timeline::before { transform: none; }
+}
